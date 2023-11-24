@@ -7,7 +7,7 @@ public abstract class PreguntaCerradaBase<T, V> extends PreguntaBase<T, V> {
 
     public PreguntaCerradaBase(String enunciado, List<String> opciones) {
         super(enunciado);
-        if (opciones.isEmpty()) {
+        if (opciones == null ||opciones.isEmpty()) {
             throw new IllegalArgumentException("La pregunta debe tener al menos 1 opcion");
         }
         this.opciones = opciones;
