@@ -1,5 +1,5 @@
 package test;
-import Strategies.PreguntaAbierta;
+
 import Strategies.PreguntaRespuestaMultiple;
 import org.junit.jupiter.api.*;
 

@@ -29,11 +29,11 @@ public class Informe {
         System.out.println(mergedRespuestas);
     }
 
-    public static boolean isEncuestasContestadasEmpty(List<EncuestaContestada> encuestasContestadas) {
+    private static boolean isEncuestasContestadasEmpty(List<EncuestaContestada> encuestasContestadas) {
         return encuestasContestadas == null || encuestasContestadas.isEmpty();
     }
 
-    public static boolean isEncuestasContestadasNotTheSameType(List<EncuestaContestada> encuestasContestadas) {
+    private static boolean isEncuestasContestadasNotTheSameType(List<EncuestaContestada> encuestasContestadas) {
         // checar que todas las encuestas tengan el mismo formato/mismas preguntas
         for (EncuestaContestada encuestaContestada : encuestasContestadas) {
             if (!encuestaContestada.getEncuesta().equals(encuestasContestadas.get(0).getEncuesta())) {
@@ -43,7 +43,7 @@ public class Informe {
         return true;
     }
 
-    private static MergedRespuestas mergeRespuestas(List<EncuestaContestada> encuestasContestadas) {
+    public static MergedRespuestas mergeRespuestas(List<EncuestaContestada> encuestasContestadas) {
         HashMap<PreguntaAbierta, List<String>> preguntasAbiertasConSusRespuestas = new HashMap<>();
         HashMap<PreguntaRespuestaUnica, List<Integer>> preguntasRespuestaUnicaConSusRespuestas = new HashMap<>();
         HashMap<PreguntaRespuestaMultiple, List<List<Integer>>> preguntasRespuestaMultipleConSusRespuestas = new HashMap<>();
@@ -76,7 +76,7 @@ public class Informe {
         return new MergedRespuestas(preguntasAbiertasConSusRespuestas, preguntasRespuestaUnicaConSusRespuestas, preguntasRespuestaMultipleConSusRespuestas);
     }
 
-    static class MergedRespuestas {
+    public static class MergedRespuestas {
         private HashMap<PreguntaAbierta, List<String>> preguntasAbiertasConSusRespuestas;
         private HashMap<PreguntaRespuestaUnica, List<Integer>> preguntasRespuestaUnicaConSusRespuestas;
         private HashMap<PreguntaRespuestaMultiple, List<List<Integer>>> preguntasRespuestaMultipleConSusRespuestas;
@@ -85,6 +85,18 @@ public class Informe {
             this.preguntasAbiertasConSusRespuestas = preguntasAbiertasConSusRespuestas;
             this.preguntasRespuestaUnicaConSusRespuestas = preguntasRespuestaUnicaConSusRespuestas;
             this.preguntasRespuestaMultipleConSusRespuestas = preguntasRespuestaMultipleConSusRespuestas;
+        }
+
+        public HashMap<PreguntaAbierta, List<String>> getPreguntasAbiertasConSusRespuestas() {
+            return this.preguntasAbiertasConSusRespuestas;
+        }
+
+        public HashMap<PreguntaRespuestaUnica, List<Integer>> getPreguntasRespuestaUnicaConSusRespuestas() {
+            return this.preguntasRespuestaUnicaConSusRespuestas;
+        }
+
+        public HashMap<PreguntaRespuestaMultiple, List<List<Integer>>> getPreguntasRespuestaMultipleConSusRespuestas() {
+            return this.preguntasRespuestaMultipleConSusRespuestas;
         }
 
         @Override

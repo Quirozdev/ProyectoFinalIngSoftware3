@@ -13,6 +13,9 @@ public class Encuesta implements IEncuesta {
     private List<PreguntaRespuestaMultiple> preguntasRespuestaMultiple;
     private List<PreguntaAbierta> preguntasAbiertas;
     public Encuesta(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la encuesta no puede estar vacio");
+        }
         this.nombre = nombre;
         this.preguntasRespuestaUnica = new ArrayList<>();
         this.preguntasRespuestaMultiple = new ArrayList<>();

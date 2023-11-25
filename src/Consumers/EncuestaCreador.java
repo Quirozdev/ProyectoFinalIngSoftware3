@@ -38,8 +38,7 @@ public class EncuestaCreador {
             Logger.log("Ingrese su opcion: ");
 
             try {
-                int opcion = scanner.nextInt();
-                scanner.nextLine();
+                int opcion = Integer.parseInt(scanner.nextLine());
 
                 if (opcion < 1 || opcion > 5) throw new Exception();
 
