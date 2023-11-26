@@ -2,7 +2,6 @@ package Consumers;
 
 import Encuestas.Encuesta;
 import Encuestas.EncuestaContestable;
-import Encuestas.EncuestaContestada;
 import Strategies.PreguntaAbierta;
 import Strategies.PreguntaRespuestaMultiple;
 import Strategies.PreguntaRespuestaUnica;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EncuestaContestador {
-    private static List<EncuestaContestada> encuestasContestadas = new ArrayList<>();
+    private static List<EncuestaContestable> encuestasContestadas = new ArrayList<>();
     private EncuestaContestador() {}
 
     public static void contestarEncuesta(Encuesta encuesta) {
@@ -71,8 +70,7 @@ public class EncuestaContestador {
             }
 
             Logger.logSuccess("Gracias por contestar la encuesta!" + "\n");
-            EncuestaContestada encuestaContestada = new EncuestaContestada(encuestaContestable);
-            encuestasContestadas.add(encuestaContestada);
+            encuestasContestadas.add(encuestaContestable);
 
             while (true) {
                 Logger.logln("1. Ver informe de las encuestas contestadas");
@@ -83,7 +81,7 @@ public class EncuestaContestador {
                     int opcion = scanner.nextInt();
                     if (opcion == 1) {
                         Logger.log("\n");
-                        Informe.generar(encuestasContestadas);
+                        Logger.logImportant(Informe.generar(encuestasContestadas).mostrar());
                     } else if (opcion == 2) {
                         contestarEncuesta(encuesta);
                     } else if (opcion == 3) {

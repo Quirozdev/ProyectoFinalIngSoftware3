@@ -1,9 +1,5 @@
 package Encuestas;
 
-import Encuestas.Encuesta;
-import Encuestas.EncuestaClonador;
-import Encuestas.IEncuesta;
-import Encuestas.IEncuestaContestable;
 import Strategies.PreguntaAbierta;
 import Strategies.PreguntaRespuestaMultiple;
 import Strategies.PreguntaRespuestaUnica;
@@ -33,6 +29,50 @@ public class EncuestaContestable implements IEncuesta, IEncuestaContestable {
     @Override
     public void contestarPreguntaRespuestaMultiple(int indicePregunta, List<Integer> indicesOpciones) {
         this.encuesta.getPreguntasRespuestaMultiple().get(indicePregunta).setSelectedRespuesta(indicesOpciones);
+    }
+
+    @Override
+    public boolean preguntasRespuestaUnicaHanSidoContestadas() {
+        for (PreguntaRespuestaUnica preguntaRespuestaUnica : this.getEncuesta().getPreguntasRespuestaUnica()) {
+            if (preguntaRespuestaUnica.getSelectedRespuesta() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean preguntasRespuestaMultipleHanSidoContestadas() {
+        for (PreguntaRespuestaMultiple preguntaRespuestaMultiple : this.getEncuesta().getPreguntasRespuestaMultiple()) {
+            if (preguntaRespuestaMultiple.getSelectedRespuesta() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean preguntasAbiertasHanSidoContestadas() {
+        for (PreguntaAbierta preguntaAbierta : this.getEncuesta().getPreguntasAbiertas()) {
+            if (preguntaAbierta.getSelectedRespuesta() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean haSidoContestadaCompletamente() {
+        if (!this.preguntasRespuestaUnicaHanSidoContestadas()) {
+            return false;
+        }
+        if (!this.preguntasRespuestaMultipleHanSidoContestadas()) {
+            return false;
+        }
+        if (!this.preguntasAbiertasHanSidoContestadas()) {
+            return false;
+        }
+        return true;
     }
 
     @Override

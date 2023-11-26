@@ -1,6 +1,6 @@
 package Consumers;
 
-import Encuestas.EncuestaContestada;
+import Encuestas.EncuestaContestable;
 import Strategies.PreguntaAbierta;
 import Strategies.PreguntaRespuestaMultiple;
 import Strategies.PreguntaRespuestaUnica;
@@ -12,30 +12,42 @@ import java.util.List;
 
 
 public class Informe {
-    private Informe() {
+    private String nombreEncuestas;
+    private MergedRespuestas mergedRespuestas;
+    private Informe(String nombreEncuestas, MergedRespuestas mergedRespuestas) {
+        this.nombreEncuestas = nombreEncuestas;
+        this.mergedRespuestas = mergedRespuestas;
     }
 
-    public static void generar(List<EncuestaContestada> encuestasContestadas) {
+    public static Informe generar(List<EncuestaContestable> encuestasContestadas) {
         if (isEncuestasContestadasEmpty(encuestasContestadas)) {
-            throw new IllegalArgumentException("No se puede crear un informe sin encuestas contestadas");
+            throw new IllegalArgumentException("No se puede crear un informe con una lista de encuestas vacia");
         }
         if (!isEncuestasContestadasNotTheSameType(encuestasContestadas)) {
             throw new IllegalArgumentException("No se puede crear un informe con encuestas distintas");
         }
 
+        if (isEncuestasNotContestadas(encuestasContestadas)) {
+            throw new IllegalArgumentException("No se puede crear un informe con encuestas no contestadas");
+        }
+
         MergedRespuestas mergedRespuestas = Informe.mergeRespuestas(encuestasContestadas);
 
-        System.out.println("Informe: " + encuestasContestadas.get(0).getEncuesta().getNombre() + "\n");
-        System.out.println(mergedRespuestas);
+        return new Informe(encuestasContestadas.get(0).getEncuesta().getNombre(), mergedRespuestas);
     }
 
-    private static boolean isEncuestasContestadasEmpty(List<EncuestaContestada> encuestasContestadas) {
+    public String mostrar() {
+        return "Informe: " + this.nombreEncuestas + "\n" +
+                this.mergedRespuestas.toString();
+    }
+
+    private static boolean isEncuestasContestadasEmpty(List<EncuestaContestable> encuestasContestadas) {
         return encuestasContestadas == null || encuestasContestadas.isEmpty();
     }
 
-    private static boolean isEncuestasContestadasNotTheSameType(List<EncuestaContestada> encuestasContestadas) {
+    private static boolean isEncuestasContestadasNotTheSameType(List<EncuestaContestable> encuestasContestadas) {
         // checar que todas las encuestas tengan el mismo formato/mismas preguntas
-        for (EncuestaContestada encuestaContestada : encuestasContestadas) {
+        for (EncuestaContestable encuestaContestada : encuestasContestadas) {
             if (!encuestaContestada.getEncuesta().equals(encuestasContestadas.get(0).getEncuesta())) {
                 return false;
             }
@@ -43,12 +55,21 @@ public class Informe {
         return true;
     }
 
-    public static MergedRespuestas mergeRespuestas(List<EncuestaContestada> encuestasContestadas) {
+    private static boolean isEncuestasNotContestadas(List<EncuestaContestable> encuestasContestadas) {
+        for (EncuestaContestable encuestaContestada : encuestasContestadas) {
+            if (!encuestaContestada.preguntasAbiertasHanSidoContestadas() || !encuestaContestada.preguntasRespuestaMultipleHanSidoContestadas() || !encuestaContestada.preguntasRespuestaUnicaHanSidoContestadas()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static MergedRespuestas mergeRespuestas(List<EncuestaContestable> encuestasContestadas) {
         HashMap<PreguntaAbierta, List<String>> preguntasAbiertasConSusRespuestas = new HashMap<>();
         HashMap<PreguntaRespuestaUnica, List<Integer>> preguntasRespuestaUnicaConSusRespuestas = new HashMap<>();
         HashMap<PreguntaRespuestaMultiple, List<List<Integer>>> preguntasRespuestaMultipleConSusRespuestas = new HashMap<>();
 
-        for (EncuestaContestada encuestaContestada : encuestasContestadas) {
+        for (EncuestaContestable encuestaContestada : encuestasContestadas) {
             for (PreguntaAbierta preguntaAbierta : encuestaContestada.getEncuesta().getPreguntasAbiertas()) {
                 if (preguntasAbiertasConSusRespuestas.containsKey(preguntaAbierta)) {
                     preguntasAbiertasConSusRespuestas.get(preguntaAbierta).add(preguntaAbierta.getSelectedRespuesta());
@@ -102,7 +123,9 @@ public class Informe {
         @Override
         public String toString() {
             StringBuilder stringBuilder = new StringBuilder();
+            int contador = 1;
             for (PreguntaRespuestaUnica preguntaRespuestaUnica : this.preguntasRespuestaUnicaConSusRespuestas.keySet()) {
+                stringBuilder.append(contador).append("- ");
                 stringBuilder.append(preguntaRespuestaUnica.toString());
                 stringBuilder.append("\nRespuestas:\n");
                 for (Integer respuesta : this.preguntasRespuestaUnicaConSusRespuestas.get(preguntaRespuestaUnica)) {
@@ -110,9 +133,11 @@ public class Informe {
                     stringBuilder.append("\n");
                 }
                 stringBuilder.append("--------------------------------------------------------------\n");
+                contador++;
             }
-
+            contador = 1;
             for (PreguntaRespuestaMultiple preguntaRespuestaMultiple : this.preguntasRespuestaMultipleConSusRespuestas.keySet()) {
+                stringBuilder.append(contador).append("- ");
                 stringBuilder.append(preguntaRespuestaMultiple.toString());
                 stringBuilder.append("\nRespuestas:\n");
                 for (List<Integer> respuesta : this.preguntasRespuestaMultipleConSusRespuestas.get(preguntaRespuestaMultiple)) {
@@ -120,9 +145,11 @@ public class Informe {
                     stringBuilder.append("\n");
                 }
                 stringBuilder.append("--------------------------------------------------------------\n");
+                contador++;
             }
-
+            contador = 1;
             for (PreguntaAbierta preguntaAbierta : this.preguntasAbiertasConSusRespuestas.keySet()) {
+                stringBuilder.append(contador).append("- ");
                 stringBuilder.append(preguntaAbierta.toString());
                 stringBuilder.append("\nRespuestas:\n");
                 for (String respuesta : this.preguntasAbiertasConSusRespuestas.get(preguntaAbierta)) {
