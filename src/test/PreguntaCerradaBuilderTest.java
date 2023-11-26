@@ -3,7 +3,6 @@ package test;
 import Builders.PreguntaCerradaBuilder;
 import Strategies.PreguntaRespuestaMultiple;
 import Strategies.PreguntaRespuestaUnica;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
