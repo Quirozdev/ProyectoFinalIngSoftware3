@@ -73,19 +73,26 @@ public class Encuesta implements IEncuesta {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.nombre);
+        stringBuilder.append("Nombre de la encuesta: ").append(this.nombre);
         stringBuilder.append("\n");
+        int contador = 1;
         for (PreguntaRespuestaUnica preguntaRespuestaUnica : this.getPreguntasRespuestaUnica()) {
+            stringBuilder.append(contador).append("- ");
             stringBuilder.append(preguntaRespuestaUnica.toString());
             stringBuilder.append("\n");
+            contador++;
         }
         for (PreguntaRespuestaMultiple preguntaRespuestaMultiple : this.getPreguntasRespuestaMultiple()) {
+            stringBuilder.append(contador).append("- ");
             stringBuilder.append(preguntaRespuestaMultiple.toString());
             stringBuilder.append("\n");
+            contador++;
         }
         for (PreguntaAbierta preguntaAbierta : this.getPreguntasAbiertas()) {
+            stringBuilder.append(contador).append("- ");
             stringBuilder.append(preguntaAbierta.toString());
             stringBuilder.append("\n");
+            contador++;
         }
         return stringBuilder.toString();
     }

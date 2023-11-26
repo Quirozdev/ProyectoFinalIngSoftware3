@@ -90,4 +90,19 @@ public class EncuestaContestableTest {
         Assertions.assertNull(encuestaContestable.getPreguntasRespuestaMultiple().get(0).getSelectedRespuesta());
     }
 
+    @Test
+    public void test07EncuestaContestableHaSidoContestadaCompletamente() {
+        EncuestaContestable encuestaContestable = new EncuestaContestable(this.encuesta);
+        Assertions.assertFalse(encuestaContestable.haSidoContestadaCompletamente());
+
+        encuestaContestable.contestarPreguntaAbierta(0, "Juan");
+        Assertions.assertFalse(encuestaContestable.haSidoContestadaCompletamente());
+
+        encuestaContestable.contestarPreguntaRespuestaUnica(0, 1);
+        Assertions.assertFalse(encuestaContestable.haSidoContestadaCompletamente());
+
+        encuestaContestable.contestarPreguntaRespuestaMultiple(0, List.of(1, 2));
+        Assertions.assertTrue(encuestaContestable.haSidoContestadaCompletamente());
+    }
+
 }

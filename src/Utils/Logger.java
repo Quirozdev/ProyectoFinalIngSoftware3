@@ -16,4 +16,8 @@ public class Logger {
     public static <T> void logSuccess(T success) {
         System.out.println(ANSIColors.ANSI_GREEN + success + ANSIColors.ANSI_RESET);
     }
+
+    public static <T> void logImportant(T mensajeImportante) {
+        System.out.println(ANSIColors.ANSI_YELLOW + mensajeImportante + ANSIColors.ANSI_RESET);
+    }
 }

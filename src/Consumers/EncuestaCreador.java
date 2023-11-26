@@ -48,8 +48,8 @@ public class EncuestaCreador {
                 }
 
                 if (opcion == 4) {
-                    Logger.logln("Estructura de la encuesta: ");
-                    Logger.logln(encuesta.toString());
+                    Logger.logln("Estructura de la encuesta: \n");
+                    Logger.logImportant(encuesta.toString());
                     continue;
                 }
 

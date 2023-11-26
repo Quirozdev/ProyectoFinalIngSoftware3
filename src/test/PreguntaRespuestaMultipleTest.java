@@ -53,10 +53,3 @@ public class PreguntaRespuestaMultipleTest {
                 () ->preguntaRespuestaMultiple.setSelectedRespuesta(List.of()));
     }
 }
-/*
-public void test04RespuestasIncorrectas() {
-        PreguntaRespuestaMultiple preguntaRespuestaMultiple = new PreguntaRespuestaMultiple("¿que dia es?",new ArrayList<>(List.of("Lunes","Martes","Miercoles")));
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> preguntaRespuestaMultiple.setSelectedRespuesta(List.of(1,3)));
-    }
- */
