@@ -1,7 +1,10 @@
+import Builders.PreguntaBuilder;
 import Consumers.EncuestaContestador;
 import Consumers.EncuestaCreador;
 import Encuestas.Encuesta;
 import Factories.PreguntaFactory;
+import Utils.Archivos;
+
 import java.util.ArrayList;
 
 public class main {
@@ -11,6 +14,14 @@ public class main {
 
         EncuestaContestador.contestarEncuesta(encuesta);
 
+//        new PreguntaBuilder("¿Que tanto te agrada el servicio?").siendoPreguntaCerrada(new ArrayList<>() {
+//            {
+//                add("Muy poco");
+//                add("Poco");
+//                add("Neutral");
+//                add("Mucho");
+//            }
+//        }).conRespuestaUnica();
 
 //        Encuesta encuesta = new Encuesta("Encuesta random");
 //

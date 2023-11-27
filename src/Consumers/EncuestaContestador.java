@@ -5,6 +5,7 @@ import Encuestas.EncuestaContestable;
 import Strategies.PreguntaAbierta;
 import Strategies.PreguntaRespuestaMultiple;
 import Strategies.PreguntaRespuestaUnica;
+import Utils.Archivos;
 import Utils.Logger;
 
 import java.util.ArrayList;
@@ -75,7 +76,8 @@ public class EncuestaContestador {
             while (true) {
                 Logger.logln("1. Ver informe de las encuestas contestadas");
                 Logger.logln("2. Contestar la encuesta nuevamente");
-                Logger.logln("3. Salir");
+                Logger.logln("3. Guardar informe de las encuestas contestadas");
+                Logger.logln("4. Salir");
                 Logger.log("Ingrese su opcion: ");
                 try {
                     int opcion = scanner.nextInt();
@@ -85,6 +87,13 @@ public class EncuestaContestador {
                     } else if (opcion == 2) {
                         contestarEncuesta(encuesta);
                     } else if (opcion == 3) {
+                        try {
+                            Archivos.guardarEnArchivo(Informe.generar(encuestasContestadas).mostrar());
+                            Logger.logSuccess("Informe guardado con exito! (en la carpeta InformesGuardados)" + "\n");
+                        } catch (Exception e) {
+                            Logger.logError("No se pudo guardar el informe");
+                        }
+                    } else if (opcion == 4) {
                         System.exit(0);
                     } else {
                         throw new Exception();

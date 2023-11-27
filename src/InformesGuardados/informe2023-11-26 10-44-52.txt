@@ -1,0 +1,43 @@
+Informe: holaaaaaaaaaa
+1- como estas?
+1. bien
+2. mal
+3. regular
+
+Respuestas:
+1
+2
+--------------------------------------------------------------
+2- estas de acuerdo?
+1. si
+2. no
+
+Respuestas:
+2
+1
+--------------------------------------------------------------
+1- que te gusta?
+[1]musica
+[2]videojuegos
+[3]comida'
+
+Respuestas:
+[1, 2, 3]
+[2, 3]
+--------------------------------------------------------------
+2- musica preferida
+[1]rock
+[2]pop
+[3]corridos
+[4]cumbia'
+
+Respuestas:
+[4]
+[1, 4]
+--------------------------------------------------------------
+1- describe algo
+
+Respuestas:
+sisadqwerd
+wefweikfgo
+--------------------------------------------------------------
