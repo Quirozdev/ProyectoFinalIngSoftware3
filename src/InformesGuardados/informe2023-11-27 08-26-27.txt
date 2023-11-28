@@ -1,0 +1,25 @@
+Informe: tarea
+1- ¿cuantos años tienes?
+1. 21
+2. 22
+3. 23
+4. 24
+
+Respuestas:
+1
+--------------------------------------------------------------
+1- Selecciona un color o mas
+[1]verde
+[2]purpura
+[3]morado
+[4]negro
+[5]azul
+
+Respuestas:
+[5]
+--------------------------------------------------------------
+1- como te sientes ?
+
+Respuestas:
+un poco trsite porque tenemos que presentar esta wea en menos de 5 minutos, valio wilson jajajajajajajjajajaj maldicionnnnnnnnnnnnnnnnnnnnnn, porque profe porque?, pero noooooooooooooooo, todos exponiendo en 5 minutos como el rayo macquin
+--------------------------------------------------------------
